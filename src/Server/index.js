@@ -7,7 +7,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+app.use(cors(
+    [
+        'https://nirbhaya-eight.vercel.app',
+        'http://localhost:5173'
+    ]
+));
 app.use(express.json());
 
 app.post('/api/chat', async (req, res) => {
