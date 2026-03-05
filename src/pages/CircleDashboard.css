@@ -1,0 +1,205 @@
+.circle-dashboard-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 24px;
+    padding: 0;
+    opacity: 1;
+}
+
+/* Edit Controls & Admin View */
+.circle-logo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.edit-overlay {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 10;
+}
+
+.banner-edit {
+    top: 16px;
+    right: 16px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    gap: 8px;
+}
+
+.icon-edit {
+    inset: 0;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+.admin-view .circle-cover:hover .banner-edit,
+.admin-view .circle-logo-wrapper:hover .icon-edit {
+    opacity: 1;
+}
+
+.edit-circle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-btn:hover {
+    color: var(--color-plum);
+}
+
+.circle-header-banner {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 32px;
+}
+
+.placeholder-cover {
+    height: 150px;
+    background: linear-gradient(135deg, var(--color-beige), #e0d4e6);
+}
+
+.circle-cover {
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+}
+
+.circle-header-content {
+    padding: 24px;
+    position: relative;
+}
+
+.circle-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: -60px;
+    margin-bottom: 16px;
+}
+
+.circle-logo {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 4px solid white;
+}
+
+.joined-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.role-badge {
+    background: var(--color-plum);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.circle-title {
+    font-size: 2rem;
+    margin: 0 0 12px 0;
+    color: var(--text-primary);
+}
+
+.circle-meta {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.category-tag {
+    background: rgba(74, 14, 78, 0.05);
+    color: var(--color-plum);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.circle-desc-main {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Layout for Feed/Chat (Phase 2 & 3 support) */
+.circle-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .circle-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.circle-main-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.circle-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.rules-list {
+    padding-left: 20px;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.rules-list li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}

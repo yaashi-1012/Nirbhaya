@@ -1,0 +1,274 @@
+/* Loader.css */
+.loader-container {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #e6e6fa, #fdfbf7);
+    /* Soft lavender-to-cream */
+    z-index: 9999;
+    /* Stage 1: Fade in background */
+    animation: bgReveal 0.5s ease-in-out forwards;
+    overflow: hidden;
+    /* Stage 4: Fade out loader container smoothly */
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .loader-container {
+    background: linear-gradient(135deg, #2a1c2b, #311933);
+}
+
+.loader-container.phase-exiting {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes bgReveal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Ambient glow */
+.ambient-glow {
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    max-width: 600px;
+    max-height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
+    opacity: 0;
+    animation: glowReveal 0.5s ease-in-out forwards;
+}
+
+[data-theme="dark"] .ambient-glow {
+    background: radial-gradient(circle, rgba(230, 230, 250, 0.15) 0%, rgba(230, 230, 250, 0) 70%);
+}
+
+@keyframes glowReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Particles */
+.particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    filter: blur(1px);
+}
+
+[data-theme="dark"] .particle {
+    background: rgba(230, 230, 250, 0.4);
+}
+
+.p1 {
+    width: 6px;
+    height: 6px;
+    top: 20%;
+    left: 30%;
+    animation: floatP1 3s ease-in-out infinite alternate;
+}
+
+.p2 {
+    width: 4px;
+    height: 4px;
+    top: 70%;
+    left: 20%;
+    animation: floatP2 4s ease-in-out infinite alternate-reverse;
+}
+
+.p3 {
+    width: 8px;
+    height: 8px;
+    top: 40%;
+    left: 80%;
+    animation: floatP3 3.5s ease-in-out infinite alternate;
+}
+
+.p4 {
+    width: 5px;
+    height: 5px;
+    top: 80%;
+    left: 70%;
+    animation: floatP4 4.5s ease-in-out infinite alternate-reverse;
+}
+
+.p5 {
+    width: 7px;
+    height: 7px;
+    top: 10%;
+    left: 60%;
+    animation: floatP5 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatP1 {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(15px, -20px);
+    }
+}
+
+@keyframes floatP2 {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-10px, -15px);
+    }
+}
+
+@keyframes floatP3 {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(20px, -10px);
+    }
+}
+
+@keyframes floatP4 {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-15px, 15px);
+    }
+}
+
+@keyframes floatP5 {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(10px, 25px);
+    }
+}
+
+.illustration-wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Stage 4 transition down */
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1.03);
+}
+
+.phase-exiting .illustration-wrapper {
+    transform: scale(0.85);
+}
+
+/* The beautiful generated artwork */
+.unity-illustration {
+    position: relative;
+    width: 250px;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
+    opacity: 0;
+    transform: scale(0.9);
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+    /* Enter animation */
+    animation: revealImage 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+[data-theme="dark"] .unity-illustration {
+    filter: drop-shadow(0 15px 30px rgba(255, 255, 255, 0.05));
+}
+
+@keyframes revealImage {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9) blur(4px);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(0) scale(1) blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1.03);
+    }
+}
+
+/* Glow behind illustration */
+.merge-glow-bg {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(224, 176, 255, 0.8) 0%, rgba(224, 176, 255, 0) 60%);
+    opacity: 0;
+    border-radius: 50%;
+    animation: pulseGlow 2.5s ease-in-out forwards;
+}
+
+@keyframes pulseGlow {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+    .loader-container,
+    .ambient-glow,
+    .unity-illustration,
+    .merge-glow-bg,
+    .particle {
+        animation: none !important;
+        transition: opacity 1s linear !important;
+    }
+
+    .unity-illustration {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+    }
+
+    .merge-glow-bg {
+        opacity: 0.8 !important;
+        transform: scale(1) !important;
+    }
+}

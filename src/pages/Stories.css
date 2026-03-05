@@ -1,0 +1,136 @@
+.stories-page {
+    /* Inherits from page-container */
+}
+
+.stories-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.hero-story {
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+    margin-bottom: 48px;
+    background: linear-gradient(135deg, var(--color-lavender), var(--color-blush));
+    border: none;
+}
+
+[data-theme="dark"] .hero-story {
+    background: linear-gradient(135deg, #2a1c2b, #311933);
+}
+
+.hero-content {
+    flex: 1;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.mb-2 {
+    margin-bottom: 8px;
+}
+
+.mr-1 {
+    margin-right: 4px;
+}
+
+.hero-content h2 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+[data-theme="dark"] .hero-content h2 {
+    color: var(--accent-primary);
+}
+
+.hero-excerpt {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 500px;
+}
+
+[data-theme="dark"] .hero-excerpt {
+    color: var(--text-secondary);
+}
+
+.hero-image-wrapper {
+    flex: 1;
+    min-height: 400px;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stories-controls {
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.search-bar {
+    position: relative;
+    max-width: 600px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+.search-input {
+    padding-left: 48px !important;
+}
+
+.stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 48px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--border-strong);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+@media (max-width: 900px) {
+    .hero-story {
+        flex-direction: column;
+    }
+
+    .hero-image-wrapper {
+        min-height: 300px;
+    }
+
+    .hero-content {
+        padding: 32px 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .stories-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+}

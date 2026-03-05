@@ -1,0 +1,216 @@
+.profile-creation-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #fcf8fa 0%, #f3e8ff 100%);
+    padding: 2rem 1rem;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.profile-creation-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    width: 100%;
+    max-width: 500px;
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(74, 14, 78, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.progress-indicator {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--profile-muted-rose, #D8A7B1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.creation-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.creation-header h1 {
+    font-size: 1.8rem;
+    color: var(--profile-deep-plum, #4A0E4E);
+    margin-bottom: 0.5rem;
+}
+
+.creation-header p {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+/* --- Avatar Upload --- */
+.avatar-upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.avatar-preview-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--profile-lavender, #E6E6FA);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.avatar-preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-upload-label {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--profile-deep-plum, #4A0E4E);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.avatar-upload-label:hover {
+    transform: scale(1.1);
+}
+
+/* --- Form Fields --- */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--profile-deep-plum, #4A0E4E);
+    margin-bottom: 0.4rem;
+}
+
+.creation-input,
+.creation-select,
+.creation-textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: white;
+    transition: all 0.2s;
+}
+
+.creation-input:focus,
+.creation-select:focus,
+.creation-textarea:focus {
+    outline: none;
+    border-color: var(--profile-muted-rose, #D8A7B1);
+    box-shadow: 0 0 0 3px rgba(216, 167, 177, 0.2);
+}
+
+.creation-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* --- Category Cards --- */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.category-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.category-card:hover {
+    border-color: var(--profile-muted-rose, #D8A7B1);
+    background: var(--profile-bg-soft, #FCF8FA);
+}
+
+.category-card.selected {
+    border-color: var(--profile-deep-plum, #4A0E4E);
+    background: var(--profile-lavender, #E6E6FA);
+    color: var(--profile-deep-plum, #4A0E4E);
+}
+
+/* --- Interests Multi-Select Tags --- */
+.interests-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.interest-pill {
+    padding: 0.6rem 1.2rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.interest-pill:hover {
+    border-color: var(--profile-muted-rose, #D8A7B1);
+}
+
+.interest-pill.selected {
+    background: var(--profile-deep-plum, #4A0E4E);
+    color: white;
+    border-color: var(--profile-deep-plum, #4A0E4E);
+}
+
+/* --- Navigation Buttons --- */
+.step-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-primary.full-width,
+.btn-secondary.full-width {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem;
+    font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+    .profile-creation-card {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+}

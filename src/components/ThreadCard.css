@@ -1,0 +1,132 @@
+.thread-card {
+    margin-bottom: 24px;
+}
+
+.thread-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.thread-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.category-badge {
+    background-color: var(--color-lavender);
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .category-badge {
+    background-color: var(--accent-primary);
+    color: var(--text-primary);
+}
+
+.thread-author {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: var(--border-light);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+}
+
+.thread-time {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.thread-actions-top {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    color: var(--text-muted);
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    background-color: var(--bg-primary);
+    color: var(--accent-primary);
+}
+
+.active-save {
+    color: var(--accent-primary);
+}
+
+.report-btn:hover {
+    color: var(--status-error);
+    background-color: rgba(158, 54, 54, 0.1);
+}
+
+.thread-title {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.thread-content {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.thread-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    color: var(--accent-hover);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.thread-footer {
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid var(--border-light);
+    padding-top: 16px;
+}
+
+.action-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.action-pill:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--accent-primary);
+}
+
+.active-upvote {
+    background-color: var(--color-lavender);
+    color: var(--accent-primary);
+    border-color: var(--accent-hover);
+}
