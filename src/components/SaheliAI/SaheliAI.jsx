@@ -78,8 +78,8 @@ const SaheliAI = () => {
             // Add the new user message to the payload
             apiMessages.push({ role: 'user', content: userMessage });
 
-            // 3. Send to local Express backend proxy
-            const response = await fetch('http://localhost:3001/api/chat', {
+            // 3. Send to API backend proxy (routed via Vite or Vercel)
+            const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
