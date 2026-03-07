@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import Webcam from 'react-webcam';
+import * as faceapi from 'face-api.js';
 import { auth, googleProvider } from '../firebase';
 import { Mail, Lock, User as UserIcon, Sparkles, ArrowRight, ArrowLeft } from 'lucide-react';
 import './AuthGateway.css';
@@ -14,6 +16,9 @@ const AuthGateway = ({ onLoginSuccess }) => {
     const [authError, setAuthError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [socialLoading, setSocialLoading] = useState(null); // 'google'
+    const [verificationLoading, setVerificationLoading] = useState(false);
+    const [modelsLoaded, setModelsLoaded] = useState(false);
+    const webcamRef = useRef(null);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -21,6 +26,25 @@ const AuthGateway = ({ onLoginSuccess }) => {
         name: '',
         interests: ''
     });
+
+    const loadModels = async () => {
+        try {
+            setAuthMessage("Loading security features...");
+            // Load weights directly from GitHub raw user content
+            const MODEL_URL = 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights';
+            
+            await Promise.all([
+                faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+                faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL)
+            ]);
+            
+            setModelsLoaded(true);
+            setAuthMessage("Please verify your identity to join our sisterhood.");
+        } catch (error) {
+            console.error("Error loading face-api models:", error);
+            setAuthError("Failed to load security features. Please try again.");
+        }
+    };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -73,31 +97,11 @@ const AuthGateway = ({ onLoginSuccess }) => {
                         return;
                     }
 
-                    const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-                    const user = userCredential.user;
-
-                    // Initialize their profile in Firestore
-                    await setDoc(doc(db, "users", user.uid), {
-                        email: user.email,
-                        name: formData.name || "",
-                        username: "",
-                        bio: "",
-                        location: "",
-                        photoURL: "",
-                        profileCompleted: false, // MANDATORY ONBOARDING FLAG
-                        onboardingStep: 1, // Track where they left off if they abandon
-                        stats: {
-                            posts: 0,
-                            answers: 0,
-                            followers: 0,
-                            following: 0,
-                            points: 0
-                        },
-                        badges: [],
-                        createdAt: serverTimestamp()
-                    });
-
-                    onLoginSuccess();
+                    // Move to Step 3 for Face Verification
+                    setStep(3);
+                    loadModels();
+                    setIsLoading(false);
+                    return;
                 }
             }
         } catch (error) {
@@ -115,6 +119,80 @@ const AuthGateway = ({ onLoginSuccess }) => {
             }
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const handleVerifyAndSignup = async () => {
+        setAuthError('');
+        setVerificationLoading(true);
+        try {
+            const imageSrc = webcamRef.current.getScreenshot();
+            if (!imageSrc) {
+                setAuthError("Failed to capture image. Please ensure camera access is granted.");
+                setVerificationLoading(false);
+                return;
+            }
+
+            // Create a temporary image element from the base64 string
+            const img = document.createElement("img");
+            img.src = imageSrc;
+            
+            // Wait for image to load before processing
+            await new Promise((resolve) => { img.onload = resolve; });
+
+            // Detect faces and predict gender
+            const detections = await faceapi.detectAllFaces(img, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender();
+
+            if (detections.length === 0) {
+                setAuthError("No face detected. Please adjust lighting and try again.");
+                setVerificationLoading(false);
+                return;
+            }
+            
+            if (detections.length > 1) {
+                setAuthError("Multiple faces detected. Please ensure only you are in the frame.");
+                 setVerificationLoading(false);
+                 return;
+            }
+
+            const gender = detections[0].gender; // 'male' or 'female'
+            const probability = detections[0].genderProbability;
+
+            console.log(`Detected: ${gender} (${probability})`);
+
+            if (gender === 'female') {
+                const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+                const user = userCredential.user;
+
+                await setDoc(doc(db, "users", user.uid), {
+                    email: user.email,
+                    name: formData.name || "",
+                    username: "",
+                    bio: "",
+                    location: "",
+                    photoURL: "",
+                    profileCompleted: false, 
+                    onboardingStep: 1, 
+                    stats: {
+                        posts: 0,
+                        answers: 0,
+                        followers: 0,
+                        following: 0,
+                        points: 0
+                    },
+                    badges: [],
+                    createdAt: serverTimestamp()
+                });
+
+                onLoginSuccess();
+            } else {
+                setAuthError("Nirbhaya is an exclusive community for women. We cannot proceed with your registration.");
+            }
+        } catch (error) {
+            console.error("Verification error:", error);
+            setAuthError(error.message || "Failed to verify identity. Please try again.");
+        } finally {
+            setVerificationLoading(false);
         }
     };
 
@@ -196,9 +274,54 @@ const AuthGateway = ({ onLoginSuccess }) => {
                         </button>
                     )}
 
+                    {step === 3 && (
+                        <button
+                            type="button"
+                            className="back-btn fade-in"
+                            onClick={() => { setStep(2); setAuthError(''); setAuthMessage(''); }}
+                            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer', marginBottom: '16px', padding: 0, fontSize: '0.9rem' }}
+                        >
+                            <ArrowLeft size={16} /> Back
+                        </button>
+                    )}
+
                     {authMessage && <div className="auth-info-message fade-in" style={{ color: '#6d28d9', fontSize: '0.9rem', marginBottom: '1rem', textAlign: 'center', backgroundColor: '#f3e8ff', padding: '10px', borderRadius: '8px' }}>{authMessage}</div>}
                     {authError && <div className="auth-error-message fade-in" style={{ color: '#ff4d4d', fontSize: '0.85rem', marginBottom: '1rem', textAlign: 'center' }}>{authError}</div>}
 
+                    {step === 3 ? (
+                        <div className="verification-section fade-in" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+                           {!modelsLoaded ? (
+                               <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                                   <div className="loading-spinner" style={{ margin: '0 auto 1rem', width: '30px', height: '30px', border: '3px solid #f3f3f3', borderTop: '3px solid #6d28d9', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+                                   <p>Initializing secure verification...</p>
+                                   <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+                               </div>
+                           ) : (
+                               <>
+                                   <Webcam
+                                       audio={false}
+                                       ref={webcamRef}
+                                       screenshotFormat="image/jpeg"
+                                       style={{ width: '100%', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                                       videoConstraints={{ facingMode: "user" }}
+                                   />
+                                   <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center' }}>
+                                       Please position your face clearly in the camera. Verification happens completely in your browser for privacy.
+                                   </p>
+                                   <button 
+                                       type="button" 
+                                       className="auth-submit-btn" 
+                                       onClick={handleVerifyAndSignup}
+                                       disabled={verificationLoading}
+                                       style={{ marginTop: '10px' }}
+                                   >
+                                       <span>{verificationLoading ? 'Analyzing...' : 'Capture & Verify'}</span>
+                                       {!verificationLoading && <Sparkles size={18} />}
+                                   </button>
+                               </>
+                           )}
+                        </div>
+                    ) : (
                     <form className="auth-form" onSubmit={handleSubmit}>
 
                         {/* SIGNUP ONLY FIELDS */}
@@ -337,6 +460,7 @@ const AuthGateway = ({ onLoginSuccess }) => {
                         </div>
 
                     </form>
+                    )}
                 </div>
             </div>
         </div>

@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Bell, Search } from 'lucide-react';
+import { Bell, Search, HelpCircle } from 'lucide-react';
 import { auth, db } from '../firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { searchUsers } from '../utils/userService';
 import { useNavigate } from 'react-router-dom';
 import NotificationBell from './NotificationBell';
+import { useTour } from '../context/TourContext';
 import './Header.css';
 
 const Header = () => {
@@ -18,6 +19,7 @@ const Header = () => {
 
     const searchRef = useRef(null);
     const navigate = useNavigate();
+    const { startTour } = useTour();
 
     // Debounce search effect
     useEffect(() => {
@@ -119,7 +121,18 @@ const Header = () => {
             </div>
 
             <div className="header-actions">
-                <NotificationBell />
+                <button 
+                   onClick={startTour} 
+                   className="nav-action-btn"
+                   title="Take a Tour"
+                   style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}
+                >
+                   <HelpCircle size={24} />
+                </button>
+            
+                <div className="tour-notifications" style={{ display: 'flex' }}>
+                    <NotificationBell />
+                </div>
 
                 <div
                     className="user-profile cursor-pointer"

@@ -171,7 +171,7 @@ const SaheliAI = () => {
                     </form>
                 </div>
             ) : (
-                <button className="saheli-floating-btn" onClick={() => setIsOpen(true)}>
+                <button className="saheli-floating-btn tour-ai-chat" onClick={() => setIsOpen(true)}>
                     <MessageSquare size={20} />
                     <span>Ask Saheli</span>
                 </button>

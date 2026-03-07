@@ -79,7 +79,7 @@ const Community = () => {
                     <p className="section-subtitle">A safe, anonymous, and empowering space to ask, answer, and support each other.</p>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                    <button className="btn btn-primary" onClick={() => setIsNewPostModalOpen(true)}>
+                    <button className="btn btn-primary tour-create-post" onClick={() => setIsNewPostModalOpen(true)}>
                         <PenSquare size={20} />
                         <span>New Post</span>
                     </button>

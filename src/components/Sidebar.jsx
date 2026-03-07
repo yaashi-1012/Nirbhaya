@@ -7,7 +7,7 @@ import './Sidebar.css';
 
 const Sidebar = () => {
   return (
-    <aside className="sidebar">
+    <aside className="sidebar tour-sidebar">
       <div className="sidebar-logo">
         <span className="logo-icon">🌷</span>
         <span className="logo-text">NIRBHAYA</span>
@@ -19,7 +19,7 @@ const Sidebar = () => {
           <span>Community Q&A</span>
         </NavLink>
 
-        <NavLink to="/circles" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/circles" className={({ isActive }) => isActive ? "nav-item active tour-communities" : "nav-item tour-communities"}>
           <Users size={24} />
           <span>Sister Circles</span>
         </NavLink>

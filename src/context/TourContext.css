@@ -1,0 +1,139 @@
+/* Custom styles for driver.js popover to match Nirbhaya theme */
+.driver-popover {
+    font-family: 'Inter', system-ui, sans-serif !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    border: 1px solid rgba(109, 40, 217, 0.1) !important;
+}
+
+.driver-popover-title {
+    font-size: 1.1rem !important;
+    color: #6d28d9 !important; /* theme primary */
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+}
+
+.driver-popover-description {
+    font-size: 0.95rem !important;
+    color: #4b5563 !important;
+    line-height: 1.5 !important;
+}
+
+.driver-popover-footer button {
+    font-family: 'Inter', system-ui, sans-serif !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    padding: 6px 14px !important;
+    transition: all 0.2s ease !important;
+}
+
+.driver-popover-next-btn, .driver-popover-done-btn {
+    background-color: #6d28d9 !important;
+    color: white !important;
+    border: none !important;
+    text-shadow: none !important;
+}
+
+.driver-popover-next-btn:hover, .driver-popover-done-btn:hover {
+    background-color: #5b21b6 !important;
+}
+
+.driver-popover-prev-btn {
+    background-color: transparent !important;
+    border: 1px solid #d1d5db !important;
+    color: #4b5563 !important;
+    text-shadow: none !important;
+}
+
+.driver-popover-prev-btn:hover {
+    background-color: #f3f4f6 !important;
+}
+
+.driver-popover-close-btn {
+    color: #9ca3af !important;
+}
+
+.driver-popover-close-btn:hover {
+    color: #ef4444 !important;
+}
+
+
+/* Language Selection Modal Styles */
+.tour-lang-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.tour-lang-modal {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: popIn 0.3s ease-out;
+}
+
+.tour-lang-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.tour-lang-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+}
+
+.tour-lang-desc {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.tour-lang-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.lang-btn {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 12px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--status-error);
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
